@@ -39,13 +39,16 @@ CREATE TABLE student (
 
 1. Install a compatible JDK and MySQL server.
 2. Create the database and table.
-3. Configure your local database connection in the connection class.
+3. Set the database connection environment variables before launching the application:
+   - `DB_URL` (optional; defaults to `jdbc:mysql://localhost:3306/jdbc_db`)
+   - `DB_USER` (required)
+   - `DB_PASSWORD` (required)
 4. Ensure the MySQL JDBC driver is available on the project's classpath.
 5. Import the project into Eclipse or compile/run the Java sources using your preferred Java workflow.
 
 ## Security Note
 
-Do not commit real database passwords to a public repository. The current connection implementation contains hard-coded local connection credentials; move credentials to environment variables or a local configuration file excluded from Git, and rotate any credential that has been used outside a disposable local database.
+Do not commit real database passwords to a public repository. The connection class reads credentials from `DB_USER` and `DB_PASSWORD`, and optionally reads the JDBC URL from `DB_URL`. Do not commit real credentials. Rotate any credential that has been used outside a disposable local database.
 
 ## Learning Goals
 
