@@ -10,15 +10,20 @@ public class DBConnection {
 		Connection conn = null;
 
 		try {
-			String url = "jdbc:mysql://localhost:3306/jdbc_db";
-			String user = "root";
-			String pass = "1234";
+			String url = System.getenv().getOrDefault(
+					"DB_URL", "jdbc:mysql://localhost:3306/jdbc_db");
+			String user = System.getenv("DB_USER");
+			String pass = System.getenv("DB_PASSWORD");
+
+			if (user == null || user.isBlank() || pass == null || pass.isBlank()) {
+				throw new IllegalStateException(
+						"Set DB_USER and DB_PASSWORD environment variables before connecting.");
+			}
 
 			conn = DriverManager.getConnection(url, user, pass);
 		}
 
 		catch (Exception e) {
-
 			e.printStackTrace();
 		}
 
